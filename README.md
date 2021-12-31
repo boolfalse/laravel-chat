@@ -19,30 +19,53 @@ You will need PHP, Composer and Node.js. For MacOS I recommend installing them w
 
 1. Get your free Pusher API Keys at [https://pusher.com](https://pusher.com)
 2. Clone this repo
-3. Install Composer packages
-   ```sh
-   composer install
-   ```
-4. Install NPM packages
-   ```sh
-   npm install
-   ```
-5. Create a sqlite database file in the database folder
+3. Install Composer|NPM packages
+    ```sh
+    composer install
+    npm install
+    ```
+4. Create a sqlite database file in the database folder
     ```sh
     touch db.sqlite
+   
+5. [OPTIONAL] For UNIX-based systems run these commands below:
+    ```sh
+    # make sure you've driver installed for SQLite
+    sudo apt update
+    sudo apt install php-sqlite3
+    sudo apt install php7.4-sqlite3 # [optional] or just install for specific PHP version
+    sudo systemctl restart apache2
+    
+    # one-time command for entire machine
+    sudo usermod -a -G www-data $USER
+    # setup ownerships/permissions
+    sudo chown -R $USER:www-data storage/ bootstrap/cache/
+    sudo chgrp -R www-data storage bootstrap/cache/
+    sudo chmod -R ug+rwx storage bootstrap/cache/
+    
+    # setup SQLite file write permissions for avoiding this error:
+    # SQLSTATE[HY000] General Error: 8 attempt to write a readonly database
+    # NOTE: this will affect not only on "db.sqlite", but on "database" folder recursively
+    sudo chgrp -R www-data database/
+    chown -R $USER database/
+    
+    # now you can check appropriate permissions/ownerships
+    # for "database" folder and "database/db.sqlite" file
+    stat -c "%a %n" database/*
+    ls -la database/
     ```
-6. Enter your API keys in `.env`
-   ```
-    PUSHER_APP_ID=
-    PUSHER_APP_KEY=
-    PUSHER_APP_SECRET=
-    PUSHER_APP_CLUSTER=
-   ```
+6. Enter your Pusher credentials in `.env`
+    ```
+    PUSHER_APP_ID=******
+    PUSHER_APP_KEY=********************
+    PUSHER_APP_SECRET=********************
+    PUSHER_APP_CLUSTER=***
+    ```
 7. Enter the path to your database file
     ```
     DB_DATABASE=<Full path to the sqlite file>
     ```
-8. Initilise the database
+8. Initialise the database
     ```sh
     php artisan migrate
     ```
