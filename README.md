@@ -1,3 +1,4 @@
+
 ## About The Project
 
 This is the final codebase for our [Pusher tutorial](https://pusher.com/tutorials/how-to-build-a-chat-app-with-vue-js-and-laravel/).
@@ -15,7 +16,7 @@ If you don't want to follow the tutorial, and just want to get a local copy up a
 
 You will need PHP, Composer and Node.js. For MacOS I recommend installing them with [Homebrew](https://brew.sh/). For Windows see instructions for [PHP](https://windows.php.net/download/), [Composer](https://getcomposer.org/doc/00-intro.md#installation-windows) and [Node](https://nodejs.org/en/download/).
 
-### Installation
+### Installation and Usage
 
 1. Get your free Pusher API Keys at [https://pusher.com](https://pusher.com)
 2. Clone this repo
@@ -65,20 +66,25 @@ You will need PHP, Composer and Node.js. For MacOS I recommend installing them w
     ```
     DB_DATABASE=<Full path to the sqlite file>
     ```
-8. Initialise the database
+8. Initialize the database
     ```sh
-    php artisan migrate
+    php artisan migrate:fresh --seed
     ```
-9. Compile the webpages and run it
+9. Compile the webpages and run the server
     ```sh
     npm run dev
     php artisan serve
     ```
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Go to http://127.0.0.1:8000/, register a couple of users and start chatting!
+10. Login in different browsers (or in incognito) with these credentials:
+    ```
+    # browser 1
+    Username: user1@pusher.com
+    Password: password
+    # browser 2
+    Username: user2@pusher.com
+    Password: password
+    ```
+11. Go to "/chat" for real-time chat
 
 <!-- CONTACT -->
 ## Contact
